@@ -1,7 +1,12 @@
 import React from 'react';
+import Router from './pages/Router';
 
-function App() {
-  return <div className="App bg-red-300">Music App</div>;
-}
+const App = () => {
+  return (
+    <div>
+      <Router />
+    </div>
+  );
+};
 
 export default App;
