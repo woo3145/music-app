@@ -1,7 +1,6 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BaseLayout from '../layout/BaseLayout';
-import Home from './Home';
+import BaseLayout from './layout/BaseLayout';
+import Home from './pages/Home';
 
 const Router = () => {
   return (
@@ -9,6 +8,11 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<Home />} />
+          <Route path="explore" element={<Home />} />
+          <Route path="library" element={<Home />} />
+          <Route path="login" element={<Home />} />
+
+          <Route path="search/:query" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
