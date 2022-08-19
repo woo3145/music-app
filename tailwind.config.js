@@ -7,5 +7,5 @@ module.exports = {
       animation: {},
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
