@@ -12,7 +12,7 @@ const NavItem = ({ to, text }: Props) => {
       className={({ isActive }) =>
         `${
           isActive ? 'text-blue-900' : 'text-black'
-        } text-xl font-mono px-4 py-2 cursor-pointer hover:bg-slate-300 rounded-md duration-300`
+        } text-xl px-4 py-2 cursor-pointer hover:bg-slate-300 rounded-md duration-300`
       }
     >
       {text}
