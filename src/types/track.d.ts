@@ -6,3 +6,12 @@ interface ITrack {
   audioUrl: string;
   genre: string[];
 }
+
+interface IPlayList {
+  id: number;
+  name: string;
+  artworkUrl: string;
+  description: string;
+  tracks: ITrack[];
+  creatorName: string;
+}
