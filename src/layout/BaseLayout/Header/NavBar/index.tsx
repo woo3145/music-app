@@ -5,7 +5,7 @@ const NavBar = () => {
     <nav className="flex justify-center gap-8">
       <NavItem to="" text="Home" />
       <NavItem to="explore" text="Explore" />
-      <NavItem to="library" text="Library" />
+      <NavItem to="you/library" text="Library" />
     </nav>
   );
 };
