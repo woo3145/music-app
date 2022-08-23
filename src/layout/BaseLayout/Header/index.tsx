@@ -4,9 +4,15 @@ import SearchBar from './SearchBar';
 import HeaderLogo from './HeaderLogo';
 import HeaderUser from './HeaderUser';
 import { useState } from 'react';
+import Modal from '../../../modals/Modal';
 
 const Header = () => {
   const [user, setUser] = useState(false);
+  const [loginModalVisible, setLoginModalVisible] = useState(false);
+
+  const toggleLoginModalVisible = () => {
+    setLoginModalVisible(!loginModalVisible);
+  };
 
   // 임시 로그인, 로그아웃
   const onLogin = () => {
@@ -31,13 +37,20 @@ const Header = () => {
         {user ? (
           <HeaderUser onLogout={onLogout} />
         ) : (
-          <Link
-            to="login"
-            className="px-6 py-2 text-blue-900 rounded-md cursor-pointer hover:bg-slate-300 duration-300"
-            onClick={onLogin}
-          >
-            로그인
-          </Link>
+          <>
+            <Link
+              to="login"
+              className="px-6 py-2 text-blue-900 rounded-md cursor-pointer hover:bg-slate-300 duration-300"
+              onClick={toggleLoginModalVisible}
+            >
+              로그인
+            </Link>
+            {loginModalVisible && (
+              <Modal onBackdropClick={toggleLoginModalVisible}>
+                <div>LoginModal</div>
+              </Modal>
+            )}
+          </>
         )}
       </div>
     </header>
