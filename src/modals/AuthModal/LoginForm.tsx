@@ -1,7 +1,43 @@
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import useSignInWithEmailAndPassword from '../../services/auth/useSignInWithEmailAndPassword';
+import { auth } from '../../services/firebase';
+
 const LoginForm = () => {
+  const { signInWithEmailAndPassword, loading, error, loggedInUser } =
+    useSignInWithEmailAndPassword(auth);
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (loading) return;
+    const { email, password } = form;
+    await signInWithEmailAndPassword(email, password);
+  };
+
+  useEffect(() => {
+    // 유저 상태관리 추가
+    console.log(loggedInUser);
+  }, [loggedInUser]);
+
+  useEffect(() => {
+    // 유저 상태관리 추가
+    console.log(error);
+  }, [error]);
   return (
     <div className="w-full">
-      <form className="flex flex-col">
+      <form className="flex flex-col" onSubmit={onSubmit}>
         <label className="block">
           <span className="block font-medium text-slate-700 text-sm">
             이메일
@@ -9,6 +45,9 @@ const LoginForm = () => {
           <input
             type="email"
             placeholder="you@example.com"
+            name="email"
+            value={form.email}
+            onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
                     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                   invalid:border-pink-500 invalid:text-pink-600
@@ -23,6 +62,9 @@ const LoginForm = () => {
           <input
             type="password"
             placeholder="password"
+            name="password"
+            value={form.password}
+            onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
                     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                   invalid:border-pink-500 invalid:text-pink-600
@@ -30,9 +72,17 @@ const LoginForm = () => {
                 "
           />
         </label>
-        <div className="text-center py-2 bg-blue-900 mt-4 text-white rounded-md font-semibold cursor-pointer">
+        <button
+          type="submit"
+          className={`text-center py-2 mt-4 text-white rounded-md font-semibold ${
+            loading ? 'bg-slate-500' : 'cursor-pointer bg-blue-900'
+          }`}
+        >
           로그인
-        </div>
+        </button>
+        {error && (
+          <p className="text-red-600 text-sm mt-1 text-center">{error}</p>
+        )}
       </form>
 
       <div className="text-center py-4 text-sm">Or</div>
