@@ -6,9 +6,10 @@ import HeaderUser from './HeaderUser';
 import { useState } from 'react';
 import Modal from '../../../modals/Modal';
 import LoginModal from '../../../modals/AuthModal';
+import { auth } from '../../../services/firebase';
 
 const Header = () => {
-  const [user, setUser] = useState(false);
+  const user = auth.currentUser;
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const toggleLoginModalVisible = () => {
@@ -19,7 +20,7 @@ const Header = () => {
 
   const onLogout = () => {
     if (window.confirm('정말 로그아웃을 하겠습니까?')) {
-      setUser(false);
+      auth.signOut();
     }
   };
 
