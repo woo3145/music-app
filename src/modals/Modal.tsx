@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { IoMdClose } from 'react-icons/io';
 
 interface ModalProps {
   onBackdropClick: () => void;
@@ -29,7 +30,15 @@ const Modal = ({ onBackdropClick, children }: ModalProps) => {
         className="fixed top-0 left-0 w-full h-screen bg-black opacity-50 flex items-center justify-center"
         onClick={onBackdropClick}
       ></div>
-      <div className="w-64 h-44 bg-red-400 fixed">{children}</div>
+      <div className="bg-white rounded-md shadow-lg fixed w-full max-w-xl px-8 py-8">
+        <div className="relative">
+          <IoMdClose
+            className="text-2xl cursor-pointer absolute right-0"
+            onClick={onBackdropClick}
+          />
+        </div>
+        {children}
+      </div>
     </div>,
     modalRoot
   );

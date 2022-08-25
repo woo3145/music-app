@@ -5,6 +5,7 @@ import HeaderLogo from './HeaderLogo';
 import HeaderUser from './HeaderUser';
 import { useState } from 'react';
 import Modal from '../../../modals/Modal';
+import LoginModal from '../../../modals/AuthModal';
 
 const Header = () => {
   const [user, setUser] = useState(false);
@@ -14,10 +15,8 @@ const Header = () => {
     setLoginModalVisible(!loginModalVisible);
   };
 
-  // 임시 로그인, 로그아웃
-  const onLogin = () => {
-    setUser(true);
-  };
+  // 임시 로그아웃
+
   const onLogout = () => {
     if (window.confirm('정말 로그아웃을 하겠습니까?')) {
       setUser(false);
@@ -47,7 +46,7 @@ const Header = () => {
             </Link>
             {loginModalVisible && (
               <Modal onBackdropClick={toggleLoginModalVisible}>
-                <div>LoginModal</div>
+                <LoginModal />
               </Modal>
             )}
           </>

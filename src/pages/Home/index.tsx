@@ -22,7 +22,7 @@ const Home = () => {
       </div>
       <div>
         <p className="text-2xl py-8">Recommended Artists</p>
-        <ul className="flex flex-nowrap gap-10 pb-4 overflow-scroll">
+        <ul className="flex flex-nowrap gap-10 pb-4 overflow-x-scroll">
           {mockRecommendedArtists.map((artist: IArtist, idx) => (
             <ArtistCard key={idx} artist={artist} />
           ))}
