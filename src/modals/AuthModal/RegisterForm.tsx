@@ -1,28 +1,26 @@
-import { ChangeEvent, useState, FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import useCreateUserWithEmailAndPassword from '../../services/auth/useCreateUserWithEmailAndPassword';
 import { auth } from '../../services/firebase';
+import useForm from '../../utils/useForm';
+
+interface RegisterFormData {
+  email: string;
+  password: string;
+}
 
 const RegisterForm = () => {
   const { createUserWithEmailAndPassword, loading, error, registeredUser } =
     useCreateUserWithEmailAndPassword(auth);
 
-  const [form, setForm] = useState({
+  const { state, changeHandler } = useForm<RegisterFormData>({
     email: '',
     password: '',
   });
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
-    const { email, password } = form;
+    const { email, password } = state;
     await createUserWithEmailAndPassword(email, password);
   };
 
@@ -30,11 +28,6 @@ const RegisterForm = () => {
     // 유저 상태관리 추가
     console.log(registeredUser);
   }, [registeredUser]);
-
-  useEffect(() => {
-    // 유저 상태관리 추가
-    console.log(error);
-  }, [error]);
 
   return (
     <div className="w-full">
@@ -46,7 +39,7 @@ const RegisterForm = () => {
           <input
             type="email"
             placeholder="you@example.com"
-            value={form.email}
+            value={state.email}
             name="email"
             onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
@@ -63,7 +56,7 @@ const RegisterForm = () => {
           <input
             type="password"
             placeholder="password"
-            value={form.password}
+            value={state.password}
             name="password"
             onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400

@@ -1,28 +1,26 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect } from 'react';
 import useSignInWithEmailAndPassword from '../../services/auth/useSignInWithEmailAndPassword';
 import { auth } from '../../services/firebase';
+import useForm from '../../utils/useForm';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
   const { signInWithEmailAndPassword, loading, error, loggedInUser } =
     useSignInWithEmailAndPassword(auth);
 
-  const [form, setForm] = useState({
+  const { state, changeHandler } = useForm<LoginFormData>({
     email: '',
     password: '',
   });
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
-    const { email, password } = form;
+    const { email, password } = state;
     await signInWithEmailAndPassword(email, password);
   };
 
@@ -31,10 +29,6 @@ const LoginForm = () => {
     console.log(loggedInUser);
   }, [loggedInUser]);
 
-  useEffect(() => {
-    // 유저 상태관리 추가
-    console.log(error);
-  }, [error]);
   return (
     <div className="w-full">
       <form className="flex flex-col" onSubmit={onSubmit}>
@@ -46,7 +40,7 @@ const LoginForm = () => {
             type="email"
             placeholder="you@example.com"
             name="email"
-            value={form.email}
+            value={state.email}
             onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
                     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
@@ -63,7 +57,7 @@ const LoginForm = () => {
             type="password"
             placeholder="password"
             name="password"
-            value={form.password}
+            value={state.password}
             onChange={changeHandler}
             className="mt-1 block w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
                     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
