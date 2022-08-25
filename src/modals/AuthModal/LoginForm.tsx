@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from 'react';
+import { FormEvent } from 'react';
 import useSignInWithEmailAndPassword from '../../services/auth/useSignInWithEmailAndPassword';
 import { auth } from '../../services/firebase';
 import useForm from '../../utils/useForm';
@@ -9,7 +9,7 @@ interface LoginFormData {
 }
 
 const LoginForm = () => {
-  const { signInWithEmailAndPassword, loading, error, loggedInUser } =
+  const { signInWithEmailAndPassword, loading, error } =
     useSignInWithEmailAndPassword(auth);
 
   const { state, changeHandler } = useForm<LoginFormData>({
@@ -23,11 +23,6 @@ const LoginForm = () => {
     const { email, password } = state;
     await signInWithEmailAndPassword(email, password);
   };
-
-  useEffect(() => {
-    // 유저 상태관리 추가
-    console.log(loggedInUser);
-  }, [loggedInUser]);
 
   return (
     <div className="w-full">

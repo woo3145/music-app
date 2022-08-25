@@ -1,37 +1,67 @@
 import {
   Auth,
   AuthError,
-  UserCredential,
   createUserWithEmailAndPassword as fsCreateUserWithEmailAndPassword,
   AuthErrorCodes,
+  updateProfile,
 } from 'firebase/auth';
 import { useState } from 'react';
+import { CustomErrorCodes } from '../../error/error.constants';
+import { login } from '../../utils/redux/modules/userSlice';
+import { useAppDispatch } from '../../utils/redux/store';
+
+const defaultPhotoUrl =
+  'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzh8fGN1dGUlMjBjaGFyYWN0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60';
 
 const useCreateUserWithEmailAndPassword = (auth: Auth) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [registeredUser, setRegisteredUser] = useState<UserCredential>();
+
+  const dispatch = useAppDispatch();
 
   const createUserWithEmailAndPassword = async (
+    name: string,
     email: string,
     password: string
   ) => {
     setError('');
     setLoading(true);
     try {
-      const user = await fsCreateUserWithEmailAndPassword(
+      if (name.length < 3 || 12 < name.length) {
+        throw Error(CustomErrorCodes.INVALID_NICKNAME);
+      }
+      const { user } = await fsCreateUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-
-      setRegisteredUser(user);
+      updateProfile(user, {
+        displayName: name,
+        photoURL: defaultPhotoUrl,
+      });
+      dispatch(
+        login({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+        })
+      );
     } catch (e) {
-      const error = e as AuthError;
-      if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+      // Firebase 에러와 Custom 에러 구별하여 code 변수에 담아줌
+      let code = '';
+      if (e instanceof Error) {
+        code = (e as AuthError).code || e.message;
+      }
+      console.log(code);
+      if (code === AuthErrorCodes.EMAIL_EXISTS) {
         setError('이미 사용중인 이메일입니다.');
-      } else if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
+      } else if (code === AuthErrorCodes.WEAK_PASSWORD) {
         setError('패스워드는 6글자 이상이어야 합니다.');
+      } else if (code === AuthErrorCodes.INVALID_EMAIL) {
+        setError('잘못 된 이메일 형식 입니다.');
+      } else if (code === CustomErrorCodes.INVALID_NICKNAME) {
+        setError('닉네임 길이는 3 ~ 12글자 사이입니다.');
       } else {
         setError('회원가입 도중 문제가 발생하였습니다.');
       }
@@ -40,7 +70,7 @@ const useCreateUserWithEmailAndPassword = (auth: Auth) => {
     }
   };
 
-  return { createUserWithEmailAndPassword, registeredUser, loading, error };
+  return { createUserWithEmailAndPassword, loading, error };
 };
 
 export default useCreateUserWithEmailAndPassword;

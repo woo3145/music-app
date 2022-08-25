@@ -1,16 +1,17 @@
 import {
   Auth,
   AuthError,
-  UserCredential,
   signInWithEmailAndPassword as fsSignInWithEmailAndPassword,
   AuthErrorCodes,
 } from 'firebase/auth';
 import { useState } from 'react';
+import { login } from '../../utils/redux/modules/userSlice';
+import { useAppDispatch } from '../../utils/redux/store';
 
 const useSignInWithEmailAndPassword = (auth: Auth) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [loggedInUser, setLoggedInUser] = useState<UserCredential>();
+  const dispatch = useAppDispatch();
 
   const signInWithEmailAndPassword = async (
     email: string,
@@ -19,9 +20,20 @@ const useSignInWithEmailAndPassword = (auth: Auth) => {
     setError('');
     setLoading(true);
     try {
-      const user = await fsSignInWithEmailAndPassword(auth, email, password);
+      const { user } = await fsSignInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      setLoggedInUser(user);
+      dispatch(
+        login({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+        })
+      );
     } catch (e) {
       const error = e as AuthError;
       console.log(error.code);
@@ -37,7 +49,7 @@ const useSignInWithEmailAndPassword = (auth: Auth) => {
     }
   };
 
-  return { signInWithEmailAndPassword, loggedInUser, loading, error };
+  return { signInWithEmailAndPassword, loading, error };
 };
 
 export default useSignInWithEmailAndPassword;
