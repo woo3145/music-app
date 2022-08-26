@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { CustomErrorCodes } from '../../error/error.constants';
 import { login } from '../../utils/redux/modules/userSlice';
 import { useAppDispatch } from '../../utils/redux/store';
+import { addDoc } from 'firebase/firestore';
+import { usersCollection } from '../firebase';
 
 const defaultPhotoUrl =
   'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzh8fGN1dGUlMjBjaGFyYWN0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60';
@@ -39,6 +41,14 @@ const useCreateUserWithEmailAndPassword = (auth: Auth) => {
         displayName: name,
         photoURL: defaultPhotoUrl,
       });
+
+      const docRef = await addDoc(usersCollection, {
+        uid: user.uid,
+        photoURL: defaultPhotoUrl,
+        displayName: name,
+      });
+      console.log('유저 회원가입 성공', docRef.id);
+
       dispatch(
         login({
           email: user.email,
@@ -53,7 +63,6 @@ const useCreateUserWithEmailAndPassword = (auth: Auth) => {
       if (e instanceof Error) {
         code = (e as AuthError).code || e.message;
       }
-      console.log(code);
       if (code === AuthErrorCodes.EMAIL_EXISTS) {
         setError('이미 사용중인 이메일입니다.');
       } else if (code === AuthErrorCodes.WEAK_PASSWORD) {

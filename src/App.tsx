@@ -19,6 +19,7 @@ const App = () => {
             photoUrl: userAuth.photoURL,
           })
         );
+        console.log(userAuth);
       }
     });
   }, [dispatch]);
