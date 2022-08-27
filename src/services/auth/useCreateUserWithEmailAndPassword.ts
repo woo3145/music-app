@@ -1,6 +1,5 @@
 import {
   Auth,
-  AuthError,
   createUserWithEmailAndPassword as fsCreateUserWithEmailAndPassword,
   AuthErrorCodes,
   updateProfile,
@@ -11,6 +10,7 @@ import { login } from '../../utils/redux/modules/userSlice';
 import { useAppDispatch } from '../../utils/redux/store';
 import { addDoc } from 'firebase/firestore';
 import { usersCollection } from '../firebase';
+import { getErrorMessage } from '../../utils/utils';
 
 const defaultPhotoUrl =
   'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzh8fGN1dGUlMjBjaGFyYWN0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60';
@@ -57,22 +57,22 @@ const useCreateUserWithEmailAndPassword = (auth: Auth) => {
           photoUrl: user.photoURL,
         })
       );
-    } catch (e) {
-      // Firebase 에러와 Custom 에러 구별하여 code 변수에 담아줌
-      let code = '';
-      if (e instanceof Error) {
-        code = (e as AuthError).code || e.message;
-      }
-      if (code === AuthErrorCodes.EMAIL_EXISTS) {
-        setError('이미 사용중인 이메일입니다.');
-      } else if (code === AuthErrorCodes.WEAK_PASSWORD) {
-        setError('패스워드는 6글자 이상이어야 합니다.');
-      } else if (code === AuthErrorCodes.INVALID_EMAIL) {
-        setError('잘못 된 이메일 형식 입니다.');
-      } else if (code === CustomErrorCodes.INVALID_NICKNAME) {
-        setError('닉네임 길이는 3 ~ 12글자 사이입니다.');
-      } else {
-        setError('회원가입 도중 문제가 발생하였습니다.');
+    } catch (e: any) {
+      switch (getErrorMessage(e)) {
+        case AuthErrorCodes.EMAIL_EXISTS:
+          setError('이미 사용중인 이메일입니다.');
+          break;
+        case AuthErrorCodes.WEAK_PASSWORD:
+          setError('패스워드는 6글자 이상이어야 합니다.');
+          break;
+        case AuthErrorCodes.INVALID_EMAIL:
+          setError('잘못 된 이메일 형식 입니다.');
+          break;
+        case CustomErrorCodes.INVALID_NICKNAME:
+          setError('닉네임 길이는 3 ~ 12글자 사이입니다.');
+          break;
+        default:
+          setError('회원가입 도중 문제가 발생하였습니다.');
       }
     } finally {
       setLoading(false);
