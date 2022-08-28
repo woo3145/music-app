@@ -12,7 +12,7 @@ import { addDoc } from 'firebase/firestore';
 import { usersCollection } from '../firebase';
 import { getErrorMessage } from '../../utils/utils';
 
-const defaultPhotoUrl =
+export const defaultPhotoUrl =
   'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzh8fGN1dGUlMjBjaGFyYWN0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60';
 
 const useCreateUserWithEmailAndPassword = (auth: Auth) => {

@@ -1,18 +1,32 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { useMockMe } from '../../mockData/useMockMe';
+import AuthModal from '../../modals/AuthModal';
+import { defaultPhotoUrl } from '../../services/auth/useCreateUserWithEmailAndPassword';
+import { useAppSelector } from '../../utils/redux/store';
 
 const LibraryLayout = () => {
-  const me = useMockMe();
+  const user = useAppSelector((state) => state.user.user);
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center py-40">
+        <div className="w-full max-w-xl">
+          <AuthModal />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-4 pb-20">
       <div className="py-8 flex items-center">
         <img
-          src={me.avatarUrl}
+          src={user.photoUrl || defaultPhotoUrl}
           alt="avatar"
           className="w-20 h-20 rounded-full mr-8 shrink-0"
         />
-        <p className="text-4xl">{me.name}</p>
+        <p className="text-4xl">{user.displayName}</p>
       </div>
+
       <div className="flex gap-8 text-xl pb-8">
         <NavLink
           to="library"

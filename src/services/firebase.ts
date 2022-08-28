@@ -22,4 +22,4 @@ export const createCollection = <T = DocumentData>(collectionName: string) => {
 
 // DB Collections
 
-export const usersCollection = createCollection<User>('users');
+export const usersCollection = createCollection<IUser>('users');
