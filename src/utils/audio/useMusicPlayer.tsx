@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Howl, HowlOptions } from 'howler';
 import { useAppDispatch } from '../redux/store';
 import {
@@ -15,8 +15,6 @@ import { getErrorMessage } from '../utils';
 const useMusicPlayer = () => {
   const [player, setPlayer] = useState<Howl | null>(null);
   const dispatch = useAppDispatch();
-
-  const playerRef = useRef<Howl>();
 
   const createHowl = useCallback((howlOptions: HowlOptions): Howl => {
     return new Howl(howlOptions);
@@ -50,7 +48,6 @@ const useMusicPlayer = () => {
       );
 
       setPlayer(howl);
-      playerRef.current = howl;
     },
     [dispatch, createHowl]
   );
