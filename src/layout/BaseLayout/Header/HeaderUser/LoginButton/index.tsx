@@ -8,6 +8,7 @@ const LoginButton = () => {
   const toggleLoginModalVisible = () => {
     setLoginModalVisible(!loginModalVisible);
   };
+  
   return (
     <>
       <Link

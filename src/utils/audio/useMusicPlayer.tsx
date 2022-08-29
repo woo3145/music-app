@@ -1,58 +1,30 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Howl, HowlOptions } from 'howler';
-import { useAppDispatch } from '../redux/store';
-import {
-  onEnd,
-  onLoad,
-  onLoadError,
-  onPause,
-  onPlay,
-  onPlayError,
-  startLoad,
-} from '../redux/modules/musicPlayerSlice';
-import { getErrorMessage } from '../utils';
+import { HowlOptions } from 'howler';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { MusicPlayerContext } from './MusicPlayerProvider';
 
 const useMusicPlayer = () => {
-  const [player, setPlayer] = useState<Howl | null>(null);
-  const dispatch = useAppDispatch();
+  const [args, setArgs] = useState<HowlOptions | null>(null);
+  const { player, load } = useContext(MusicPlayerContext)!;
+  useEffect(() => {
+    const { src, ...rest } = args || {};
+    if (!src) return;
+    console.log(src);
+    load({ src, ...rest });
+  }, [args, load]);
 
-  const createHowl = useCallback((howlOptions: HowlOptions): Howl => {
-    return new Howl(howlOptions);
-  }, []);
+  const controller = useMemo(() => {
+    return {
+      play: player
+        ? () => {
+            player.play();
+            console.log(player);
+          }
+        : () => {},
+      pause: player ? () => player.pause() : () => {},
+    };
+  }, [player]);
 
-  const load = useCallback(
-    (howlOption: HowlOptions) => {
-      const { src, autoplay = false, html5 = false, ...rest } = howlOption;
-      dispatch(startLoad);
-
-      const howl = createHowl({
-        src: src,
-        autoplay: autoplay,
-        html5: html5,
-        ...rest,
-      });
-
-      if (howl.state() === 'loaded') {
-        dispatch(onLoad({ duration: howl.duration() }));
-      }
-
-      howl.on('load', () => dispatch(onLoad({ duration: howl.duration() })));
-      howl.on('play', () => void dispatch(onPlay()));
-      howl.on('pause', () => dispatch(onPause()));
-      howl.on('end', () => dispatch(onEnd()));
-      howl.on('playerror', (id, error) =>
-        dispatch(onPlayError({ error: getErrorMessage(error) }))
-      );
-      howl.on('loaderror', (id, error) =>
-        dispatch(onLoadError({ error: getErrorMessage(error) }))
-      );
-
-      setPlayer(howl);
-    },
-    [dispatch, createHowl]
-  );
-
-  const playtoggle = useCallback(() => {
+  const playToggle = useCallback(() => {
     if (!player) return;
 
     if (player.playing()) {
@@ -63,8 +35,13 @@ const useMusicPlayer = () => {
   }, [player]);
 
   return useMemo(() => {
-    return { load, playtoggle };
-  }, [load, playtoggle]);
+    return {
+      ...controller,
+      setArgs,
+      player,
+      playToggle,
+    };
+  }, [controller, player, playToggle]);
 };
 
 export default useMusicPlayer;
