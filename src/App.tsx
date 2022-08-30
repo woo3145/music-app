@@ -4,7 +4,7 @@ import { useAppDispatch } from './utils/redux/store';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
 import { login } from './utils/redux/modules/userSlice';
-import MusicPlayerBar from './components/MusicPlayerBar';
+import MusicPlayer from './components/MusicPlayer';
 import MusicPlayerProvider from './utils/audio/MusicPlayerProvider';
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
   return (
     <MusicPlayerProvider>
       <Router />
-      <MusicPlayerBar />
+      <MusicPlayer />
     </MusicPlayerProvider>
   );
 };
