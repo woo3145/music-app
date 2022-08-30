@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Howl, HowlOptions } from 'howler';
 import { useAppDispatch } from '../redux/store';
 import {
@@ -26,7 +32,8 @@ interface Props {
 }
 
 const MusicPlayerProvider = ({ children }: Props) => {
-  const [player, setPlayer] = useState<Howl | null>(null);
+  const [player, setPlayer] = useState<Howl | null>(null); // 바깥에 내보내는 캡쳐된 player의 값
+  const playerRef = useRef<Howl>(); // 해당 컴포넌트에서 player의 실시간 상태를 조작하기 위한 참조값
   const dispatch = useAppDispatch();
 
   const createHowl = useCallback((howlOptions: HowlOptions): Howl => {
@@ -35,13 +42,29 @@ const MusicPlayerProvider = ({ children }: Props) => {
 
   const load = useCallback(
     (howlOption: HowlOptions) => {
-      console.log('Load', howlOption);
       const { src, autoplay = false, html5 = false, ...rest } = howlOption;
+
+      let isPlaying = false;
+      if (playerRef.current) {
+        // @ts-ignore
+        const { _src: prevSrc } = playerRef.current;
+
+        if (prevSrc === src) return; // 같은 음악을 로드한경우 무시
+
+        // 현재 음악이 재생중일경우 멈추고 삭제
+        isPlaying = playerRef.current.playing();
+        if (isPlaying) {
+          playerRef.current.stop();
+          playerRef.current.off();
+          playerRef.current = undefined;
+        }
+      }
+
       dispatch(startLoad);
 
       const howl = createHowl({
         src: src,
-        autoplay: autoplay,
+        autoplay: isPlaying || autoplay,
         html5: html5,
         ...rest,
       });
@@ -53,6 +76,7 @@ const MusicPlayerProvider = ({ children }: Props) => {
       howl.on('load', () => dispatch(onLoad({ duration: howl.duration() })));
       howl.on('play', () => dispatch(onPlay()));
       howl.on('pause', () => dispatch(onPause()));
+      howl.on('stop', () => dispatch(onPause()));
       howl.on('end', () => dispatch(onEnd()));
       howl.on('playerror', (id, error) =>
         dispatch(onPlayError({ error: getErrorMessage(error) }))
@@ -62,6 +86,7 @@ const MusicPlayerProvider = ({ children }: Props) => {
       );
 
       setPlayer(howl);
+      playerRef.current = howl;
     },
     [createHowl, dispatch]
   );

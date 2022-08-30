@@ -14,6 +14,10 @@ const MusicPlayerBar = () => {
   return (
     <>
       <div
+        className="fixed bottom-40 left-0 right-0 h-10 bg-slate-400"
+        onClick={() => setSrc('/static/sample2.mp3')}
+      ></div>
+      <div
         className="fixed bottom-0 left-0 right-0 h-10 bg-slate-400"
         onClick={() => setSrc('/static/sample1.mp3')}
       ></div>

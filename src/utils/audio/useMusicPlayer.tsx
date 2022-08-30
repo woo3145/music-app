@@ -8,7 +8,7 @@ const useMusicPlayer = () => {
   useEffect(() => {
     const { src, ...rest } = args || {};
     if (!src) return;
-    console.log(src);
+    console.log('Load src:', src);
     load({ src, ...rest });
   }, [args, load]);
 
@@ -16,8 +16,9 @@ const useMusicPlayer = () => {
     return {
       play: player
         ? () => {
-            player.play();
-            console.log(player);
+            if (!player.playing()) {
+              player.play();
+            }
           }
         : () => {},
       pause: player ? () => player.pause() : () => {},
