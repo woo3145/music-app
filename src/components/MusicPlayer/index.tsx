@@ -1,6 +1,7 @@
 import MusicMetadata from './MusicMetadata';
 import MusicPlayerController from './MusicPlayerController';
 import MusicPlayerSeekBar from './MusicPlayerSeekBar';
+import MusicVolume from './MusicVolume';
 
 const MusicPlayer = () => {
   return (
@@ -10,6 +11,7 @@ const MusicPlayer = () => {
     >
       <MusicPlayerController />
       <MusicPlayerSeekBar />
+      <MusicVolume />
       <MusicMetadata />
     </div>
   );

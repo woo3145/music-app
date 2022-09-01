@@ -22,6 +22,10 @@ const useMusicPlayer = () => {
           }
         : () => {},
       pause: player ? () => player.pause() : () => {},
+      mute: player ? (muted: boolean) => player.mute(muted) : () => {},
+      volume: player
+        ? (vol: number) => player.volume(vol)
+        : (vol: number) => {},
     };
   }, [player]);
 
