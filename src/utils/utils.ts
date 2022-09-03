@@ -43,3 +43,10 @@ export const toErrorWithMessage = (maybeError: unknown): Error => {
 export const getErrorMessage = (error: unknown): string => {
   return toErrorWithMessage(error).message;
 };
+
+export const secondsToMinutesAndSeconds = (time: number): string => {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time) - minutes * 60;
+
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};

@@ -19,7 +19,7 @@ const useMusicPosition = () => {
     if (player) {
       setPosition(player.seek() as number);
     }
-  }, [player]);
+  }, [player, isPlaying]);
 
   // progress bar 구현 시 dom조작으로 구현한다면 useLayoutEffect를 사용(깜빡임 방지)
   // input으로 구현 시 useEffect 사용

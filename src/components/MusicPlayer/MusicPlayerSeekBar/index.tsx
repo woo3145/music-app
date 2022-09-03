@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import useMusicPosition from '../../../utils/audio/useMusicPosition';
 import { useAppSelector } from '../../../utils/redux/store';
+import { secondsToMinutesAndSeconds } from '../../../utils/utils';
 
 const MusicPlayerSeekBar = () => {
   const { seek, percentage, position } = useMusicPosition();
@@ -11,7 +12,9 @@ const MusicPlayerSeekBar = () => {
   };
   return (
     <div className="w-full px-8 flex items-center">
-      <p>{Math.floor(position)}</p>
+      <p className="w-10 text-sm text-center">
+        {secondsToMinutesAndSeconds(position)}
+      </p>
       <input
         type="range"
         className="w-full"
@@ -21,7 +24,9 @@ const MusicPlayerSeekBar = () => {
         step={0.1}
         onChange={onChangeHandler}
       />
-      <p>{duration}</p>
+      <p className="w-10 text-sm text-center">
+        {secondsToMinutesAndSeconds(duration)}
+      </p>
     </div>
   );
 };
