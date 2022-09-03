@@ -3,7 +3,7 @@ import { useMockTracks } from './useMockTracks';
 export const useMockPlayLists = () => {
   const tracks = useMockTracks();
 
-  const playLists: IPlayList[] = [
+  const playLists: IPlaylist[] = [
     {
       id: 1,
       name: 'Test PlayList',

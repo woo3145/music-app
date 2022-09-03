@@ -7,7 +7,7 @@ interface ITrack {
   genre: string[];
 }
 
-interface IPlayList {
+interface IPlaylist {
   id: number;
   name: string;
   artworkUrl: string;
