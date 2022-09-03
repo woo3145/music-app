@@ -1,5 +1,11 @@
-import { Howl } from 'howler';
-import { useContext, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useAppSelector } from '../redux/store';
 import { MusicPlayerContext } from './MusicPlayerProvider';
 
@@ -7,6 +13,7 @@ const useMusicPosition = () => {
   const { player } = useContext(MusicPlayerContext)!;
   const { isPlaying, duration } = useAppSelector((state) => state.musicPlayer);
   const [position, setPosition] = useState(0);
+  const animationFrameRef = useRef<number>(); //requestAnimationFrame의 id
 
   useEffect(() => {
     if (player) {
@@ -14,30 +21,42 @@ const useMusicPosition = () => {
     }
   }, [player]);
 
+  // progress bar 구현 시 dom조작으로 구현한다면 useLayoutEffect를 사용(깜빡임 방지)
+  // input으로 구현 시 useEffect 사용
   useEffect(() => {
-    let updateTime: number;
-    if (player && isPlaying) {
-      updateTime = window.setInterval(() => {
-        setPosition((player.seek() / duration) * 100);
-      }, 1000);
-    }
-    return () => {
-      window.clearInterval(updateTime);
+    const animation = () => {
+      setPosition(player?.seek() as number);
+      animationFrameRef.current = requestAnimationFrame(animation);
     };
-  }, [isPlaying, player, duration]);
 
-  const seek = (pos: number) => {
-    if (!player) return;
-    const result = player.seek((pos * duration) / 100) as unknown;
-    if (result instanceof Howl) {
-      console.log(result.seek());
-      const updatedPos = result.seek() as number;
-      setPosition((updatedPos / duration) * 100);
+    if (player && isPlaying) {
+      animationFrameRef.current = requestAnimationFrame(animation);
     }
-  };
+
+    return () => {
+      if (!animationFrameRef.current) return;
+      cancelAnimationFrame(animationFrameRef.current);
+    };
+  }, [isPlaying, player]);
+
+  const seek = useCallback(
+    (pos: number) => {
+      if (!player) return;
+      player.seek(pos);
+      setPosition(pos);
+    },
+    [player]
+  );
+
+  const percentage = useMemo(() => {
+    if (!player) return 0;
+
+    return (position / duration) * 100 || 0;
+  }, [duration, position, player]);
 
   return {
-    position,
+    percentage, // 곡의 진행률 (단위: %)
+    position, // 곡의 진행률 (단위: 초)
     seek,
   };
 };

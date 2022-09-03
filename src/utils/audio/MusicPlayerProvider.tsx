@@ -77,7 +77,10 @@ const MusicPlayerProvider = ({ children }: Props) => {
       howl.on('play', () => dispatch(onPlay()));
       howl.on('pause', () => dispatch(onPause()));
       howl.on('stop', () => dispatch(onPause()));
-      howl.on('end', () => dispatch(onEnd()));
+      howl.on('end', () => {
+        dispatch(onEnd());
+        console.log('다음곡이 있다면 자동 재생');
+      });
       howl.on('playerror', (id, error) =>
         dispatch(onPlayError({ error: getErrorMessage(error) }))
       );
