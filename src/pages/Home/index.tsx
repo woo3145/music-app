@@ -1,15 +1,15 @@
 import React from 'react';
 import ArtistCard from '../../components/ArtistCard';
-import PlaylistCard from '../../components/playlistCard';
+import PlaylistCard from '../../components/PlaylistCard';
 import TrackCard from '../../components/TrackCard';
-import { useMockPlayLists } from '../../mockData/useMockPlayLists';
+import { useMockPlaylists } from '../../mockData/useMockPlaylists';
 import { useMockRecommendedArtists } from '../../mockData/useMockRecommendedArtists';
 import { useMockTracks } from '../../mockData/useMockTracks';
 
 const Home = () => {
   const mockTracks = useMockTracks();
   const mockRecommendedArtists = useMockRecommendedArtists();
-  const mockPlayLists = useMockPlayLists();
+  const mockPlayLists = useMockPlaylists();
   return (
     <div className="pt-4 pb-20">
       <div>
