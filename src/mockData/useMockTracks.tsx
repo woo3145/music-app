@@ -5,7 +5,7 @@ export const useMockTracks = () => {
       name: 'Break My Soul',
       artworkUrl: 'https://source.unsplash.com/collection/1/1600x1600',
       artistName: 'Beyonce',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Soul'],
     },
     {
@@ -13,7 +13,7 @@ export const useMockTracks = () => {
       name: 'Alone',
       artworkUrl: 'https://source.unsplash.com/collection/2/1600x1600',
       artistName: 'Rod Wave',
-      audioUrl: '',
+      audioUrl: '/static/sample2.mp3',
       genre: ['Pop'],
     },
     {
@@ -21,7 +21,7 @@ export const useMockTracks = () => {
       name: 'Twilight',
       artworkUrl: 'https://source.unsplash.com/collection/3/1600x1600',
       artistName: 'John Cha',
-      audioUrl: '',
+      audioUrl: '/static/sample3.mp3',
       genre: ['Jazz'],
     },
     {
@@ -29,7 +29,7 @@ export const useMockTracks = () => {
       name: 'Cause We`ve Ended As Lovers',
       artworkUrl: 'https://source.unsplash.com/collection/4/1600x1600',
       artistName: 'jeff beck',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Jazz'],
     },
     {
@@ -37,7 +37,7 @@ export const useMockTracks = () => {
       name: 'I`m Buzzed',
       artworkUrl: 'https://source.unsplash.com/collection/5/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
     {
@@ -45,7 +45,7 @@ export const useMockTracks = () => {
       name: 'slow blues',
       artworkUrl: 'https://source.unsplash.com/collection/6/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
     {
@@ -53,7 +53,7 @@ export const useMockTracks = () => {
       name: 'Worried Life Blues',
       artworkUrl: 'https://source.unsplash.com/collection/7/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
     {
@@ -61,7 +61,7 @@ export const useMockTracks = () => {
       name: 'Judy',
       artworkUrl: 'https://source.unsplash.com/collection/8/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
     {
@@ -69,7 +69,7 @@ export const useMockTracks = () => {
       name: 'Judy',
       artworkUrl: 'https://source.unsplash.com/collection/9/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
     {
@@ -77,7 +77,7 @@ export const useMockTracks = () => {
       name: 'Judy',
       artworkUrl: 'https://source.unsplash.com/collection/10/1600x1600',
       artistName: 'Michael Landau',
-      audioUrl: '',
+      audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
     },
   ];

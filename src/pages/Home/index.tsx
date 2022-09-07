@@ -1,6 +1,6 @@
 import React from 'react';
 import ArtistCard from '../../components/ArtistCard';
-import PlayListCard from '../../components/PlayListCard';
+import PlaylistCard from '../../components/playlistCard';
 import TrackCard from '../../components/TrackCard';
 import { useMockPlayLists } from '../../mockData/useMockPlayLists';
 import { useMockRecommendedArtists } from '../../mockData/useMockRecommendedArtists';
@@ -29,10 +29,10 @@ const Home = () => {
         </ul>
       </div>
       <div>
-        <p className="text-2xl py-8">New PlayList</p>
+        <p className="text-2xl py-8">New Playlist</p>
         <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-2 md:gap-6">
-          {mockPlayLists.map((playList: IPlaylist, idx) => (
-            <PlayListCard key={idx} playList={playList} />
+          {mockPlayLists.map((playlist: IPlaylist, idx) => (
+            <PlaylistCard key={idx} playlist={playlist} />
           ))}
         </ul>
       </div>

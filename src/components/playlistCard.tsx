@@ -1,20 +1,24 @@
 import { BsPlayFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { setPlaylist } from '../utils/redux/modules/playlistSlice';
+import { useAppDispatch } from '../utils/redux/store';
 
 interface Props {
-  playList: IPlaylist;
+  playlist: IPlaylist;
 }
 
-const PlayListCard = ({ playList }: Props) => {
+const PlaylistCard = ({ playlist }: Props) => {
+  const dispatch = useAppDispatch();
   const playMusic = () => {
     // 플레이 리스트에 추가 후 음악 재생
+    dispatch(setPlaylist({ playlist, currentIdx: 0 }));
   };
   return (
-    <li key={playList.id} className="w-full h-auto">
+    <li key={playlist.id} className="w-full h-auto">
       <div className="group">
         <div className="relative">
           <img
-            src={playList.artworkUrl}
+            src={playlist.artworkUrl}
             alt="avator"
             className="w-full h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
           />
@@ -27,13 +31,13 @@ const PlayListCard = ({ playList }: Props) => {
             to=""
             className="block text-md hover:underline line-clamp-1 md:line-clamp-none"
           >
-            {playList.name}
+            {playlist.name}
           </Link>
           <Link
             to=""
             className="block text-sm opacity-60 hover:underline line-clamp-1 md:line-clamp-none"
           >
-            {playList.creatorName}
+            {playlist.creatorName}
           </Link>
         </div>
       </div>
@@ -41,4 +45,4 @@ const PlayListCard = ({ playList }: Props) => {
   );
 };
 
-export default PlayListCard;
+export default PlaylistCard;

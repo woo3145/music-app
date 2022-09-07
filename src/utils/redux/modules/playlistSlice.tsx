@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { defaultPhotoUrl } from '../../../services/auth/useCreateUserWithEmailAndPassword';
 
 interface PlaylistState {
   currentTrack: ITrack | null;
@@ -21,11 +20,6 @@ interface SetPlaylistAction {
 interface AddMusicAction {
   track: ITrack;
 }
-interface NewPlaylistAction {
-  track?: ITrack;
-  creatorName: string;
-}
-
 export const playlistSlice = createSlice({
   name: 'playlistSlice',
   initialState,
@@ -47,22 +41,9 @@ export const playlistSlice = createSlice({
         ];
       }
     },
-    // 새 플레이 리스트 생성 (현재 플레이리스트가 없으면서 곡을 추가 할 경우, 새 플레이 리스트를 생성 할 경우)
-    newPlaylist(state, action: PayloadAction<NewPlaylistAction>) {
-      const defaultPlaylist: IPlaylist = {
-        id: 0,
-        name: 'New playlist',
-        artworkUrl: defaultPhotoUrl,
-        description: '',
-        tracks: action.payload.track ? [action.payload.track] : [],
-        creatorName: action.payload.creatorName,
-      };
-      state.playlist = defaultPlaylist;
-      state.currentIdx = action.payload.track ? 0 : null;
-    },
     // 다음곡으로 이동
     nextTrack(state) {
-      if (!state.playlist || !state.currentIdx) return;
+      if (!state.playlist || state.currentIdx === null) return;
       let changedIdx = 0;
       if (state.currentIdx < state.playlist.tracks.length - 1) {
         changedIdx = state.currentIdx + 1;
@@ -72,7 +53,7 @@ export const playlistSlice = createSlice({
     },
     // 이전곡으로 이동
     prevTrack(state) {
-      if (!state.playlist || !state.currentIdx) return;
+      if (!state.playlist || state.currentIdx === null) return;
       let changedIdx = state.playlist.tracks.length - 1;
       if (state.currentIdx > 0) {
         changedIdx = state.currentIdx - 1;
@@ -95,7 +76,6 @@ export const playlistSlice = createSlice({
 export const {
   setPlaylist,
   addPlaylist,
-  newPlaylist,
   nextTrack,
   prevTrack,
   selectTrackInPlaylist,

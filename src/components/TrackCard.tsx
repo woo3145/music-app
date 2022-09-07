@@ -1,13 +1,40 @@
 import { BsPlayFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import {
+  addPlaylist,
+  nextTrack,
+  setPlaylist,
+} from '../utils/redux/modules/playlistSlice';
+import { useAppDispatch, useAppSelector } from '../utils/redux/store';
 
 interface Props {
   track: ITrack;
 }
 
 const TrackCard = ({ track }: Props) => {
+  const dispatch = useAppDispatch();
+  const me = useAppSelector((state) => state.user.user);
+  const playlist = useAppSelector((state) => state.playlist.playlist);
   const playMusic = () => {
-    // 플레이 리스트에 추가 후 음악 재생
+    if (!track) return;
+    // 현재 플레이 리스트가 없을경우 새로추가
+    if (!playlist) {
+      const newPlaylist = {
+        id: 1,
+        name: 'Local Playlist',
+        artworkUrl: track.artworkUrl,
+        description: 'Test',
+        tracks: [track],
+        creatorName: me?.displayName || 'user',
+      };
+      dispatch(setPlaylist({ playlist: newPlaylist, currentIdx: 0 }));
+    } else {
+      // 플레이 리스트가 있다면 곡 추가 후 다음곡 재생
+      dispatch(addPlaylist({ track }));
+      dispatch(nextTrack());
+    }
+
+    console.log(playlist);
   };
   return (
     <li key={track.id} className="w-full h-auto">
