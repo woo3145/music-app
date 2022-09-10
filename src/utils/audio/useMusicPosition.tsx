@@ -15,6 +15,8 @@ const useMusicPosition = () => {
   const [position, setPosition] = useState(0);
   const animationFrameRef = useRef<number>(); //requestAnimationFrame의 id
 
+  const currentIdx = useAppSelector((state) => state.playlist.currentIdx);
+
   useEffect(() => {
     if (player) {
       setPosition(player.seek() as number);
@@ -47,6 +49,10 @@ const useMusicPosition = () => {
     },
     [player]
   );
+
+  useEffect(() => {
+    seek(0);
+  }, [currentIdx, seek]);
 
   const percentage = useMemo(() => {
     if (!player) return 0;

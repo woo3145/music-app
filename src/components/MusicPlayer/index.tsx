@@ -13,6 +13,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     if (!currentMusic) return;
+    console.log(currentMusic);
     setArgs({
       src: currentMusic.audioUrl,
       format: ['mp3'],

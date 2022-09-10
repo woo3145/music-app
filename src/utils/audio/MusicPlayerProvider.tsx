@@ -51,13 +51,8 @@ const MusicPlayerProvider = ({ children }: Props) => {
 
         if (prevSrc === src) return; // 같은 음악을 로드한경우 무시
 
-        // 현재 음악이 재생중일경우 멈추고 삭제
-        isPlaying = playerRef.current.playing();
-        if (isPlaying) {
-          playerRef.current.stop();
-          playerRef.current.off();
-          playerRef.current = undefined;
-        }
+        // 이전 트랙 삭제
+        playerRef.current.unload();
       }
 
       dispatch(startLoad);
