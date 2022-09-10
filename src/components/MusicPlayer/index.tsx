@@ -8,17 +8,17 @@ import MusicVolume from './MusicVolume';
 
 const MusicPlayer = () => {
   const currentMusic = useAppSelector((state) => state.playlist.currentTrack);
+  const tracks = useAppSelector((state) => state.playlist.playlist?.tracks);
   const { setArgs } = useMusicPlayer();
   useEffect(() => {
     if (!currentMusic) return;
-    console.log(currentMusic);
     setArgs({
       src: currentMusic.audioUrl,
       format: ['mp3'],
       html5: true,
       autoplay: true,
     });
-  }, [currentMusic, setArgs]);
+  }, [currentMusic, setArgs, tracks]);
 
   if (!currentMusic) return null;
   return (
