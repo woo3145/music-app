@@ -3,7 +3,7 @@ export const useMockTracks = () => {
     {
       id: 1,
       name: 'Break My Soul',
-      artworkUrl: 'https://source.unsplash.com/collection/1/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/31/1600x1600',
       artistName: 'Beyonce',
       audioUrl: '/static/sample1.mp3',
       genre: ['Soul'],
@@ -11,7 +11,7 @@ export const useMockTracks = () => {
     {
       id: 2,
       name: 'Alone',
-      artworkUrl: 'https://source.unsplash.com/collection/2/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/32/1600x1600',
       artistName: 'Rod Wave',
       audioUrl: '/static/sample2.mp3',
       genre: ['Pop'],
@@ -19,7 +19,7 @@ export const useMockTracks = () => {
     {
       id: 3,
       name: 'Twilight',
-      artworkUrl: 'https://source.unsplash.com/collection/3/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/33/1600x1600',
       artistName: 'John Cha',
       audioUrl: '/static/sample3.mp3',
       genre: ['Jazz'],
@@ -27,7 +27,7 @@ export const useMockTracks = () => {
     {
       id: 4,
       name: 'Cause We`ve Ended As Lovers',
-      artworkUrl: 'https://source.unsplash.com/collection/4/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/34/1600x1600',
       artistName: 'jeff beck',
       audioUrl: '/static/sample1.mp3',
       genre: ['Jazz'],
@@ -35,7 +35,7 @@ export const useMockTracks = () => {
     {
       id: 5,
       name: 'I`m Buzzed',
-      artworkUrl: 'https://source.unsplash.com/collection/5/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/35/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
@@ -43,7 +43,7 @@ export const useMockTracks = () => {
     {
       id: 6,
       name: 'slow blues',
-      artworkUrl: 'https://source.unsplash.com/collection/6/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/36/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
@@ -51,7 +51,7 @@ export const useMockTracks = () => {
     {
       id: 7,
       name: 'Worried Life Blues',
-      artworkUrl: 'https://source.unsplash.com/collection/7/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/37/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
@@ -59,7 +59,7 @@ export const useMockTracks = () => {
     {
       id: 8,
       name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/8/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/38/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
@@ -67,7 +67,7 @@ export const useMockTracks = () => {
     {
       id: 9,
       name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/9/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/39/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],
@@ -75,7 +75,7 @@ export const useMockTracks = () => {
     {
       id: 10,
       name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/10/1600x1600',
+      artworkUrl: 'https://source.unsplash.com/collection/40/1600x1600',
       artistName: 'Michael Landau',
       audioUrl: '/static/sample1.mp3',
       genre: ['Blues'],

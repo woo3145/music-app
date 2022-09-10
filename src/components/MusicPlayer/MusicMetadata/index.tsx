@@ -1,9 +1,15 @@
+import { useState } from 'react';
 import { RiPlayListLine } from 'react-icons/ri';
 import { useAppSelector } from '../../../utils/redux/store';
+import PlaylistBox from './PlaylistBox';
 
 const MusicMetadata = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
+  const [playlistVisible, setPlaylistVisible] = useState(false);
+  const playlistToggle = () => {
+    setPlaylistVisible(!playlistVisible);
+  };
   if (!currentTrack) {
     return null;
   }
@@ -26,8 +32,13 @@ const MusicMetadata = () => {
       </div>
       {/* menu */}
       <div className="flex">
-        <RiPlayListLine className="text-lg opacity-70 cursor-pointer hover:opacity-100 duration-200" />
+        <RiPlayListLine
+          onClick={playlistToggle}
+          className="text-lg opacity-70 cursor-pointer hover:opacity-100 duration-200"
+        />
       </div>
+
+      <>{playlistVisible && <PlaylistBox />}</>
     </div>
   );
 };

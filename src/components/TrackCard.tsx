@@ -1,7 +1,7 @@
 import { BsPlayFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import {
-  addPlaylist,
+  addNext,
   nextTrack,
   setPlaylist,
 } from '../utils/redux/modules/playlistSlice';
@@ -30,7 +30,7 @@ const TrackCard = ({ track }: Props) => {
       dispatch(setPlaylist({ playlist: newPlaylist, currentIdx: 0 }));
     } else {
       // 플레이 리스트가 있다면 곡 추가 후 다음곡 재생
-      dispatch(addPlaylist({ track }));
+      dispatch(addNext({ track }));
       dispatch(nextTrack());
     }
 

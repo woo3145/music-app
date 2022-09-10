@@ -10,6 +10,7 @@ const MusicPlayer = () => {
   const currentMusic = useAppSelector((state) => state.playlist.currentTrack);
   const tracks = useAppSelector((state) => state.playlist.playlist?.tracks);
   const { setArgs } = useMusicPlayer();
+
   useEffect(() => {
     if (!currentMusic) return;
     setArgs({

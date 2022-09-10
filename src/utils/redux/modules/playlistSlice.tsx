@@ -32,17 +32,24 @@ export const playlistSlice = createSlice({
       state.currentTrack =
         playlist.tracks[playlist.tracks.length > currentIdx ? currentIdx : 0];
     },
-    // 현재 플레이리스트에 곡 추가
-    addPlaylist(state, action: PayloadAction<AddMusicAction>) {
+    // 현재 플레이리스트 다음에 곡 추가
+    addNext(state, action: PayloadAction<AddMusicAction>) {
+      const { track } = action.payload;
       if (state.playlist) {
-        console.log(state.playlist.tracks);
         const newTracks = [...state.playlist.tracks];
         newTracks.splice(
           state.currentIdx !== null ? state.currentIdx + 1 : 0,
           0,
-          action.payload.track
+          track
         );
         state.playlist.tracks = [...newTracks];
+      }
+    },
+    // 마지막에 추가
+    addLast(state, action: PayloadAction<AddMusicAction>) {
+      const { track } = action.payload;
+      if (state.playlist) {
+        state.playlist.tracks = [...state.playlist.tracks, track];
       }
     },
     // 다음곡으로 이동
@@ -79,7 +86,7 @@ export const playlistSlice = createSlice({
 
 export const {
   setPlaylist,
-  addPlaylist,
+  addNext,
   nextTrack,
   prevTrack,
   selectTrackInPlaylist,
