@@ -44,8 +44,8 @@ const useMusicPosition = () => {
   const seek = useCallback(
     (pos: number) => {
       if (!player) return;
-      player.seek(pos);
       setPosition(pos);
+      player.seek(pos);
     },
     [player]
   );

@@ -16,6 +16,7 @@ import {
   onPlayError,
   startLoad,
 } from '../redux/modules/musicPlayerSlice';
+import { nextTrack } from '../redux/modules/playlistSlice';
 
 interface IMusicPlayerContext {
   player: Howl | null;
@@ -73,7 +74,8 @@ const MusicPlayerProvider = ({ children }: Props) => {
       howl.on('stop', () => dispatch(onPause()));
       howl.on('end', () => {
         dispatch(onEnd());
-        console.log('다음곡이 있다면 자동 재생');
+        // 다음곡이 있다면 자동 재생
+        dispatch(nextTrack());
       });
       howl.on('playerror', (id, error) => {
         dispatch(
