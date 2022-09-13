@@ -75,19 +75,36 @@ export const playlistSlice = createSlice({
 
     // 현재 플레이리스트 내에서 곡변경
     selectTrackInPlaylist(state, action: PayloadAction<number>) {
-      const idx = action.payload;
+      const selectedIdx = action.payload;
       if (!state.playlist) return;
-      if (state.playlist.tracks.length <= idx) return;
-      state.currentIdx = idx;
-      state.currentTrack = state.playlist.tracks[idx];
+      if (state.playlist.tracks.length <= selectedIdx) return;
+      state.currentIdx = selectedIdx;
+      state.currentTrack = state.playlist.tracks[selectedIdx];
     },
 
     // 플레이리스트에서 선택한 곡 삭제
     deleteTrack(state, action: PayloadAction<number>) {
+      const selectedIdx = action.payload;
+      if (!state.playlist || !state.currentIdx) return;
+
+      // 현재 재생중인 곡이면 무시
+      if (selectedIdx === state.currentIdx) return;
+
+      state.playlist.tracks = state.playlist.tracks.filter(
+        (track, idx) => idx !== selectedIdx
+      );
+      if (selectedIdx < state.currentIdx) {
+        state.currentIdx = state.currentIdx - 1;
+      }
+    },
+
+    // 플레이리스트 현재 곡 제외하고 삭제
+    clearPlaylist(state) {
       if (!state.playlist) return;
       state.playlist.tracks = state.playlist.tracks.filter(
-        (track, idx) => idx !== action.payload
+        (track, idx) => idx === state.currentIdx
       );
+      state.currentIdx = 0;
     },
   },
 });
@@ -99,6 +116,7 @@ export const {
   prevTrack,
   deleteTrack,
   selectTrackInPlaylist,
+  clearPlaylist,
 } = playlistSlice.actions;
 
 export const playlistReducer = playlistSlice.reducer;

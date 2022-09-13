@@ -2,6 +2,7 @@ import { BsPlayFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import {
+  clearPlaylist,
   deleteTrack,
   selectTrackInPlaylist,
 } from '../../../utils/redux/modules/playlistSlice';
@@ -12,18 +13,41 @@ interface PlaylistPopupProps {
 }
 
 const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
+  const dispatch = useAppDispatch();
   const playlist = useAppSelector((state) => state.playlist.playlist);
+  const currentIdx = useAppSelector((state) => state.playlist.currentIdx);
 
+  const onClearPlaylist = () => {
+    dispatch(clearPlaylist());
+  };
   return (
     <div className="absolute bottom-16 right-14 w-full max-w-sm h-auto bg-blue-900 rounded-md shadow-md">
       <div className="flex items-center justify-between px-4 py-3 border-b text-white">
         <p className="tracking-widest">Up Next</p>
-        <IoClose className="text-xl cursor-pointer" onClick={playlistToggle} />
+        <div className="flex items-center">
+          <div
+            className="mr-4 cursor-pointer hover:text-blue-100"
+            onClick={onClearPlaylist}
+          >
+            Clear
+          </div>
+          <IoClose
+            className="text-xl cursor-pointer"
+            onClick={playlistToggle}
+          />
+        </div>
       </div>
-      <ul className="bg-white h-96">
+      <ul className="bg-white h-96 overflow-y-scroll">
         {playlist &&
           playlist.tracks.map((track, idx) => {
-            return <PlaylistTrackCard idx={idx} key={idx} track={track} />;
+            return (
+              <PlaylistTrackCard
+                idx={idx}
+                key={idx}
+                track={track}
+                selected={currentIdx === idx}
+              />
+            );
           })}
       </ul>
     </div>
@@ -33,8 +57,13 @@ const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
 interface PlaylistTrackCardProps {
   track: ITrack;
   idx: number;
+  selected: boolean;
 }
-const PlaylistTrackCard = ({ track, idx }: PlaylistTrackCardProps) => {
+const PlaylistTrackCard = ({
+  track,
+  idx,
+  selected,
+}: PlaylistTrackCardProps) => {
   const dispatch = useAppDispatch();
 
   const onDeleteTrack = () => {
@@ -46,7 +75,11 @@ const PlaylistTrackCard = ({ track, idx }: PlaylistTrackCardProps) => {
   };
 
   return (
-    <li className="px-4 py-2 hover:bg-slate-200">
+    <li
+      className={`px-4 py-2 ${
+        selected ? 'bg-slate-200' : 'hover:bg-slate-200'
+      }`}
+    >
       <div className="group flex items-center cursor-pointer">
         <div
           className="relative shrink-0 flex items-center justify-center"
@@ -57,7 +90,11 @@ const PlaylistTrackCard = ({ track, idx }: PlaylistTrackCardProps) => {
             alt="avator"
             className="w-10 h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
           />
-          <BsPlayFill className="text-white invisible group-hover:visible absolute" />
+          <BsPlayFill
+            className={`text-white absolute ${
+              selected ? '' : 'invisible group-hover:visible'
+            }`}
+          />
         </div>
         <div className="px-4 w-full">
           <Link

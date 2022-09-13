@@ -16,7 +16,6 @@ import {
   onPlayError,
   startLoad,
 } from '../redux/modules/musicPlayerSlice';
-import { getErrorMessage } from '../utils';
 
 interface IMusicPlayerContext {
   player: Howl | null;
@@ -76,12 +75,20 @@ const MusicPlayerProvider = ({ children }: Props) => {
         dispatch(onEnd());
         console.log('다음곡이 있다면 자동 재생');
       });
-      howl.on('playerror', (id, error) =>
-        dispatch(onPlayError({ error: getErrorMessage(error) }))
-      );
-      howl.on('loaderror', (id, error) =>
-        dispatch(onLoadError({ error: getErrorMessage(error) }))
-      );
+      howl.on('playerror', (id, error) => {
+        dispatch(
+          onPlayError({
+            error: '플레이 중 에러가 발생하였습니다.',
+          })
+        );
+      });
+      howl.on('loaderror', (id, error: any) => {
+        dispatch(
+          onLoadError({
+            error: '로드 중 에러가 발생하였습니다.',
+          })
+        );
+      });
 
       setPlayer(howl);
       playerRef.current = howl;

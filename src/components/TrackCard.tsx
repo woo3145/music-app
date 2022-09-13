@@ -43,8 +43,11 @@ const TrackCard = ({ track }: Props) => {
             alt="avator"
             className="w-14 md:w-16 lg:w-20 h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
           />
-          <div className="absolute bottom-2 left-2 w-8 h-8 bg-neutral-600 hover:bg-blue-900 rounded-full flex justify-center items-center cursor-pointer invisible group-hover:visible">
-            <BsPlayFill className="text-white" onClick={playMusic} />
+          <div
+            onClick={playMusic}
+            className="absolute bottom-2 left-2 w-8 h-8 bg-neutral-600 hover:bg-blue-900 rounded-full flex justify-center items-center cursor-pointer invisible group-hover:visible"
+          >
+            <BsPlayFill className="text-white" />
           </div>
         </div>
         <div className="px-4">

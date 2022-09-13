@@ -62,11 +62,13 @@ export const musicPlayerSlice = createSlice({
     onPlayError: (state, action: PayloadAction<ErrorAction>) => {
       state.isPlaying = false;
       state.error = action.payload.error;
+      state.duration = 0;
     },
     onLoadError: (state, action: PayloadAction<ErrorAction>) => {
       state.isPlaying = false;
       state.isLoading = false;
       state.error = action.payload.error;
+      state.duration = 0;
     },
   },
 });

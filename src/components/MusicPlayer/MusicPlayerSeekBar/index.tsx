@@ -10,6 +10,16 @@ const MusicPlayerSeekBar = () => {
     const pos = parseInt(e.target.value);
     seek((duration / 100) * pos);
   };
+
+  const error = useAppSelector((state) => state.musicPlayer.error);
+
+  if (error) {
+    return (
+      <div className="w-full px-8 flex items-center">
+        <p>{error}</p>
+      </div>
+    );
+  }
   return (
     <div className="w-full px-8 flex items-center">
       <p className="w-10 text-sm text-center">
