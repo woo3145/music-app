@@ -81,6 +81,14 @@ export const playlistSlice = createSlice({
       state.currentIdx = idx;
       state.currentTrack = state.playlist.tracks[idx];
     },
+
+    // 플레이리스트에서 선택한 곡 삭제
+    deleteTrack(state, action: PayloadAction<number>) {
+      if (!state.playlist) return;
+      state.playlist.tracks = state.playlist.tracks.filter(
+        (track, idx) => idx !== action.payload
+      );
+    },
   },
 });
 
@@ -89,6 +97,7 @@ export const {
   addNext,
   nextTrack,
   prevTrack,
+  deleteTrack,
   selectTrackInPlaylist,
 } = playlistSlice.actions;
 

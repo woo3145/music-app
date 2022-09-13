@@ -33,8 +33,6 @@ const TrackCard = ({ track }: Props) => {
       dispatch(addNext({ track }));
       dispatch(nextTrack());
     }
-
-    console.log(playlist);
   };
   return (
     <li key={track.id} className="w-full h-auto">

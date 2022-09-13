@@ -6,6 +6,7 @@ import { auth } from './services/firebase';
 import { login } from './utils/redux/modules/userSlice';
 import MusicPlayer from './components/MusicPlayer';
 import MusicPlayerProvider from './utils/audio/MusicPlayerProvider';
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -27,8 +28,10 @@ const App = () => {
 
   return (
     <MusicPlayerProvider>
-      <Router />
-      <MusicPlayer />
+      <BrowserRouter>
+        <Router />
+        <MusicPlayer />
+      </BrowserRouter>
     </MusicPlayerProvider>
   );
 };

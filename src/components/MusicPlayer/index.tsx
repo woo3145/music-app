@@ -1,19 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useMusicPlayer from '../../utils/audio/useMusicPlayer';
 import { useAppSelector } from '../../utils/redux/store';
 import MusicMetadata from './MusicMetadata';
 import MusicPlayerController from './MusicPlayerController';
 import MusicPlayerSeekBar from './MusicPlayerSeekBar';
 import MusicVolume from './MusicVolume';
+import PlaylistPopup from './PlaylistPopup';
 
 const MusicPlayer = () => {
   const currentMusic = useAppSelector((state) => state.playlist.currentTrack);
   const tracks = useAppSelector((state) => state.playlist.playlist?.tracks);
   const { setArgs } = useMusicPlayer();
 
+  const [playlistVisible, setPlaylistVisible] = useState(false);
+  const playlistToggle = () => {
+    setPlaylistVisible(!playlistVisible);
+  };
+
   useEffect(() => {
     if (!currentMusic) return;
-    console.log(currentMusic);
     setArgs({
       src: currentMusic.audioUrl,
       format: ['mp3'],
@@ -31,7 +36,10 @@ const MusicPlayer = () => {
       <MusicPlayerController />
       <MusicPlayerSeekBar />
       <MusicVolume />
-      <MusicMetadata />
+      <MusicMetadata playlistToggle={playlistToggle} />
+      <>
+        {playlistVisible && <PlaylistPopup playlistToggle={playlistToggle} />}
+      </>
     </div>
   );
 };
