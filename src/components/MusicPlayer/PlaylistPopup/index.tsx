@@ -1,3 +1,4 @@
+import { Droppable } from 'react-beautiful-dnd';
 import { IoClose } from 'react-icons/io5';
 import { clearPlaylist } from '../../../utils/redux/modules/playlistSlice';
 import { useAppDispatch, useAppSelector } from '../../../utils/redux/store';
@@ -32,19 +33,26 @@ const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
           />
         </div>
       </div>
-      <ul className="bg-white h-96 overflow-y-scroll">
-        {playlist &&
-          playlist.tracks.map((track, idx) => {
-            return (
-              <PlaylistItem
-                idx={idx}
-                key={idx}
-                track={track}
-                selected={currentIdx === idx}
-              />
-            );
-          })}
-      </ul>
+      <Droppable droppableId="playlist-column">
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <ul className="bg-white h-96 overflow-y-scroll">
+              {playlist &&
+                playlist.tracks.map((track, idx) => {
+                  return (
+                    <PlaylistItem
+                      idx={idx}
+                      key={idx}
+                      track={track}
+                      selected={currentIdx === idx}
+                    />
+                  );
+                })}
+              {provided.placeholder}
+            </ul>
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

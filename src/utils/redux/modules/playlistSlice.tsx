@@ -20,6 +20,10 @@ interface SetPlaylistAction {
 interface AddMusicAction {
   track: ITrack;
 }
+interface MoveTrackAction {
+  sourceIdx: number;
+  destinationIdx: number;
+}
 export const playlistSlice = createSlice({
   name: 'playlistSlice',
   initialState,
@@ -106,6 +110,14 @@ export const playlistSlice = createSlice({
       );
       state.currentIdx = 0;
     },
+
+    moveTrack(state, action: PayloadAction<MoveTrackAction>) {
+      const { sourceIdx, destinationIdx } = action.payload;
+      if (!state.playlist) return;
+      const track = state.playlist.tracks[sourceIdx];
+      state.playlist.tracks.splice(sourceIdx, 1);
+      state.playlist.tracks.splice(destinationIdx, 0, track);
+    },
   },
 });
 
@@ -117,6 +129,7 @@ export const {
   deleteTrack,
   selectTrackInPlaylist,
   clearPlaylist,
+  moveTrack,
 } = playlistSlice.actions;
 
 export const playlistReducer = playlistSlice.reducer;

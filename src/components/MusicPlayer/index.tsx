@@ -9,7 +9,6 @@ import PlaylistPopup from './PlaylistPopup';
 
 const MusicPlayer = () => {
   const currentMusic = useAppSelector((state) => state.playlist.currentTrack);
-  const tracks = useAppSelector((state) => state.playlist.playlist?.tracks);
   const { setArgs } = useMusicPlayer();
 
   const [playlistVisible, setPlaylistVisible] = useState(false);
@@ -19,13 +18,14 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     if (!currentMusic) return;
+    console.log(currentMusic);
     setArgs({
       src: currentMusic.audioUrl,
       format: ['mp3'],
       html5: true,
       autoplay: true,
     });
-  }, [currentMusic, setArgs, tracks]);
+  }, [currentMusic, setArgs]);
 
   if (!currentMusic) return null;
   return (

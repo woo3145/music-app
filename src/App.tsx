@@ -7,6 +7,8 @@ import { login } from './utils/redux/modules/userSlice';
 import MusicPlayer from './components/MusicPlayer';
 import MusicPlayerProvider from './utils/audio/MusicPlayerProvider';
 import { BrowserRouter } from 'react-router-dom';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { moveTrack } from './utils/redux/modules/playlistSlice';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -26,13 +28,33 @@ const App = () => {
     });
   }, [dispatch]);
 
+  const onDargEndHandler = (result: DropResult) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    dispatch(
+      moveTrack({
+        sourceIdx: source.index,
+        destinationIdx: destination.index,
+      })
+    );
+  };
+
   return (
-    <MusicPlayerProvider>
-      <BrowserRouter>
-        <Router />
-        <MusicPlayer />
-      </BrowserRouter>
-    </MusicPlayerProvider>
+    <DragDropContext onDragEnd={onDargEndHandler}>
+      <MusicPlayerProvider>
+        <BrowserRouter>
+          <Router />
+          <MusicPlayer />
+        </BrowserRouter>
+      </MusicPlayerProvider>
+    </DragDropContext>
   );
 };
 
