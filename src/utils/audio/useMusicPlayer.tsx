@@ -5,6 +5,7 @@ import { MusicPlayerContext } from './MusicPlayerProvider';
 const useMusicPlayer = () => {
   const [args, setArgs] = useState<HowlOptions | null>(null);
   const { player, load } = useContext(MusicPlayerContext)!;
+
   useEffect(() => {
     const { src, ...rest } = args || {};
     if (!src) return;

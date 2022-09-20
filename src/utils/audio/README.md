@@ -40,5 +40,5 @@
 - [x] 4. 플레이리스트에 같은곡이 연속으로 있을 때 다음곡이나 이전곡을 하면 곡이 그대로 진행 됨 (처음으로 가야함)
      => setMusicPosition 에서 useEffect로 currentIdx 값을 추적하여 seek(0) 으로 보냄
   - [x] 새 트랙일 로드될때 이전곡이 지워지지 않음
-- [ ] 5. 플레이리스트에서 이전곡을 삭제하면 현재곡이 재시작
-- [ ] 6. 플레이리스트에서 드래그 앤 드랍 시 currentIdx의 변경이 있을 경우 현재 곡 재시작
+- [x] 5. 재생중인 currentIdx의 변경이 있을 경우 현재 곡 재시작
+     => usePosition에서 currentIdx 말고 currentTrack 을 감지

@@ -1,27 +1,23 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useAppSelector } from '../redux/store';
-import { MusicPlayerContext } from './MusicPlayerProvider';
+import {
+  MusicPlayerContext,
+  MusicPlayerPositionContext,
+} from './MusicPlayerProvider';
 
 const useMusicPosition = () => {
   const { player } = useContext(MusicPlayerContext)!;
   const { isPlaying, duration } = useAppSelector((state) => state.musicPlayer);
-  const [position, setPosition] = useState(0);
+  const { position, setPosition } = useContext(MusicPlayerPositionContext)!;
   const animationFrameRef = useRef<number>(); //requestAnimationFrame의 id
 
-  const currentIdx = useAppSelector((state) => state.playlist.currentIdx);
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
   useEffect(() => {
     if (player) {
       setPosition(player.seek() as number);
     }
-  }, [player, isPlaying]);
+  }, [player, isPlaying, setPosition]);
 
   // progress bar 구현 시 dom조작으로 구현한다면 useLayoutEffect를 사용(깜빡임 방지)
   // input으로 구현 시 useEffect 사용
@@ -39,7 +35,7 @@ const useMusicPosition = () => {
       if (!animationFrameRef.current) return;
       cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [isPlaying, player]);
+  }, [isPlaying, player, setPosition]);
 
   const seek = useCallback(
     (pos: number) => {
@@ -47,12 +43,12 @@ const useMusicPosition = () => {
       setPosition(pos);
       player.seek(pos);
     },
-    [player]
+    [player, setPosition]
   );
 
   useEffect(() => {
     seek(0);
-  }, [currentIdx, seek]);
+  }, [seek, currentTrack]);
 
   const percentage = useMemo(() => {
     if (!player) return 0;

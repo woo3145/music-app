@@ -41,6 +41,21 @@ export const playlistSlice = createSlice({
       const { track } = action.payload;
       if (state.playlist) {
         const newTracks = [...state.playlist.tracks];
+        // 중복 된 트랙 제거
+        let existIdx = null;
+        newTracks.forEach((t, idx) => {
+          if (t.id === track.id) {
+            existIdx = idx;
+            return true;
+          }
+        });
+        if (existIdx !== null) {
+          newTracks.splice(existIdx, 1);
+          if (state.currentIdx !== null && state.currentIdx < existIdx) {
+            state.currentIdx = state.currentIdx - 1;
+          }
+        }
+        // 현재 재생중인 트랙 다음곡에 추가
         newTracks.splice(
           state.currentIdx !== null ? state.currentIdx + 1 : 0,
           0,
@@ -52,9 +67,21 @@ export const playlistSlice = createSlice({
     // 마지막에 추가
     addLast(state, action: PayloadAction<AddMusicAction>) {
       const { track } = action.payload;
-      if (state.playlist) {
-        state.playlist.tracks = [...state.playlist.tracks, track];
+      if (state.playlist === null) return;
+
+      const newTracks = [...state.playlist.tracks];
+      // 중복 된 트랙 제거
+      let existIdx = null;
+      newTracks.forEach((t, idx) => {
+        if (t.id === track.id) {
+          existIdx = idx;
+          return true;
+        }
+      });
+      if (existIdx !== null) {
+        newTracks.splice(existIdx, 1);
       }
+      state.playlist.tracks = [...newTracks, track];
     },
     // 다음곡으로 이동
     nextTrack(state) {
@@ -89,7 +116,7 @@ export const playlistSlice = createSlice({
     // 플레이리스트에서 선택한 곡 삭제
     deleteTrack(state, action: PayloadAction<number>) {
       const selectedIdx = action.payload;
-      if (!state.playlist || !state.currentIdx) return;
+      if (state.playlist === null || state.currentIdx === null) return;
 
       // 현재 재생중인 곡이면 무시
       if (selectedIdx === state.currentIdx) return;
@@ -113,10 +140,24 @@ export const playlistSlice = createSlice({
 
     moveTrack(state, action: PayloadAction<MoveTrackAction>) {
       const { sourceIdx, destinationIdx } = action.payload;
-      if (!state.playlist) return;
+      if (!state.playlist || state.currentIdx === null) return;
+
       const track = state.playlist.tracks[sourceIdx];
       state.playlist.tracks.splice(sourceIdx, 1);
       state.playlist.tracks.splice(destinationIdx, 0, track);
+
+      if (state.currentIdx === sourceIdx) {
+        state.currentIdx = destinationIdx;
+        return;
+      }
+      if (state.currentIdx < sourceIdx && state.currentIdx >= destinationIdx) {
+        state.currentIdx = state.currentIdx + 1;
+        return;
+      }
+      if (state.currentIdx > sourceIdx && state.currentIdx <= destinationIdx) {
+        state.currentIdx = state.currentIdx - 1;
+        return;
+      }
     },
   },
 });

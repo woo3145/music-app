@@ -27,12 +27,22 @@ export const MusicPlayerContext = createContext<IMusicPlayerContext | null>(
   null
 );
 
+interface IMusicPlayerPositionContext {
+  position: number;
+  setPosition: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export const MusicPlayerPositionContext =
+  createContext<IMusicPlayerPositionContext | null>(null);
+
 interface Props {
   children: React.ReactNode;
 }
 
 const MusicPlayerProvider = ({ children }: Props) => {
   const [player, setPlayer] = useState<Howl | null>(null); // 바깥에 내보내는 캡쳐된 player의 값
+  const [position, setPosition] = useState(0); // 바깥에 내보내는 position 값 (곡 변경 시 0으로 가기위함)
+
   const playerRef = useRef<Howl>(); // 해당 컴포넌트에서 player의 실시간 상태를 조작하기 위한 참조값
   const dispatch = useAppDispatch();
 
@@ -46,11 +56,6 @@ const MusicPlayerProvider = ({ children }: Props) => {
 
       let isPlaying = false;
       if (playerRef.current) {
-        // @ts-ignore
-        const { _src: prevSrc } = playerRef.current;
-
-        if (prevSrc === src) return; // 같은 음악을 로드한경우 무시
-
         // 이전 트랙 삭제
         playerRef.current.unload();
       }
@@ -104,10 +109,20 @@ const MusicPlayerProvider = ({ children }: Props) => {
       player,
     };
   }, [load, player]);
+  const musicPlayerPositionContextValue = useMemo(() => {
+    return {
+      position,
+      setPosition,
+    };
+  }, [position, setPosition]);
 
   return (
     <MusicPlayerContext.Provider value={musicPlayerContextValue}>
-      {children}
+      <MusicPlayerPositionContext.Provider
+        value={musicPlayerPositionContextValue}
+      >
+        {children}
+      </MusicPlayerPositionContext.Provider>
     </MusicPlayerContext.Provider>
   );
 };
