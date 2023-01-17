@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface PlaylistState {
-  currentTrack: ITrack | null;
-  playlist: IPlaylist | null;
-  currentIdx: number | null;
+  currentTrack: ITrack | null; // 현재 재생중인 곡
+  playlist: IPlaylist | null; // 플레이 리스트
+  currentIdx: number | null; // 플레이 리스트에서 재생중인 곡 인덱스
 }
 
 const initialState: PlaylistState = {
