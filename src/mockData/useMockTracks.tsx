@@ -94,6 +94,15 @@ export const useMockTracks = () => {
       audioUrl: '/static/Louis Adrien - Escape to Sicily.mp3',
       genre: ['Jazz'],
     },
+    {
+      id: 11,
+      name: 'Error Music',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1594322436404-5a0526db4d13?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8ZXJyb3J8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+      artistName: 'Error',
+      audioUrl: '/static/error',
+      genre: ['Error'],
+    },
   ];
   return tracks;
 };

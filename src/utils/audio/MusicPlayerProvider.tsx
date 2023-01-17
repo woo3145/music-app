@@ -54,10 +54,6 @@ const MusicPlayerProvider = ({ children }: Props) => {
 
       let isPlaying = false;
       if (playerRef.current) {
-        console.log(playerRef.current.state());
-        if (playerRef.current.playing()) {
-          isPlaying = true;
-        }
         // 이전 트랙 삭제
         playerRef.current.unload();
       }

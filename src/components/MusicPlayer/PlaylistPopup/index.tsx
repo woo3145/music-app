@@ -36,7 +36,7 @@ const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
       <Droppable droppableId="playlist-column">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            <ul className="bg-white h-96 overflow-y-scroll">
+            <ul className="bg-white border border-t-0 h-96 overflow-y-scroll">
               {playlist &&
                 playlist.tracks.map((track, idx) => {
                   return (

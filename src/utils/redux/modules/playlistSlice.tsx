@@ -118,7 +118,7 @@ export const playlistSlice = createSlice({
       const selectedIdx = action.payload;
       if (state.playlist === null || state.currentIdx === null) return;
 
-      // 현재 재생중인 곡이면 무시
+      // 현재 선택 된 곡이면 무시
       if (selectedIdx === state.currentIdx) return;
 
       state.playlist.tracks = state.playlist.tracks.filter(
