@@ -22,7 +22,6 @@ interface IMusicPlayerContext {
   player: Howl | null;
   load: (options: HowlOptions) => void;
 }
-
 export const MusicPlayerContext = createContext<IMusicPlayerContext | null>(
   null
 );
@@ -31,7 +30,6 @@ interface IMusicPlayerPositionContext {
   position: number;
   setPosition: React.Dispatch<React.SetStateAction<number>>;
 }
-
 export const MusicPlayerPositionContext =
   createContext<IMusicPlayerPositionContext | null>(null);
 
@@ -56,6 +54,10 @@ const MusicPlayerProvider = ({ children }: Props) => {
 
       let isPlaying = false;
       if (playerRef.current) {
+        console.log(playerRef.current.state());
+        if (playerRef.current.playing()) {
+          isPlaying = true;
+        }
         // 이전 트랙 삭제
         playerRef.current.unload();
       }

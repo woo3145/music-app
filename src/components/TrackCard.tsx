@@ -13,7 +13,6 @@ interface Props {
 
 const TrackCard = ({ track }: Props) => {
   const dispatch = useAppDispatch();
-  const me = useAppSelector((state) => state.user.user);
   const playlist = useAppSelector((state) => state.playlist.playlist);
   const playMusic = () => {
     if (!track) return;
@@ -25,7 +24,7 @@ const TrackCard = ({ track }: Props) => {
         artworkUrl: track.artworkUrl,
         description: 'Test',
         tracks: [track],
-        creatorName: me?.displayName || 'user',
+        creatorName: 'user',
       };
       dispatch(setPlaylist({ playlist: newPlaylist, currentIdx: 0 }));
     } else {
