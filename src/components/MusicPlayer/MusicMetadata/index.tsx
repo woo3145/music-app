@@ -15,7 +15,7 @@ const MusicMetadata = ({ playlistToggle }: Props) => {
     <div className="shrink-0 w-60 flex items-center justify-between">
       <div className="flex items-center">
         {/* artwork */}
-        <div className="w-9 shrink-0">
+        <div className="w-9 h-9 shrink-0">
           <img src={currentTrack.artworkUrl} alt="" className="rounded-md" />
         </div>
         {/* title & artistName */}

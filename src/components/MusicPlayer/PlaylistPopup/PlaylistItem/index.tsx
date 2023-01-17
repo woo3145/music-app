@@ -47,7 +47,7 @@ const PlaylistItem = ({ track, idx, selected }: Props) => {
               <img
                 src={track.artworkUrl}
                 alt="avator"
-                className="w-10 h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
+                className="w-10 h-10 cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
               />
               <BsPlayFill
                 className={`text-white absolute ${

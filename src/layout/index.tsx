@@ -3,7 +3,7 @@ import Header from './Header/Header';
 
 const BaseLayout = () => {
   return (
-    <div className="pt-16 font-mono">
+    <div className="pt-16">
       <Header />
       <main className="px-4 lg:px-16 duration-200">
         <Outlet />
