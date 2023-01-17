@@ -14,16 +14,19 @@ const PlaylistCard = ({ playlist }: Props) => {
     dispatch(setPlaylist({ playlist, currentIdx: 0 }));
   };
   return (
-    <li key={playlist.id} className="w-full h-auto">
+    <li key={playlist.id} className="">
       <div className="group">
         <div className="relative">
           <img
             src={playlist.artworkUrl}
             alt="avator"
-            className="w-full h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
+            className="w-48 h-48 cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
           />
-          <div className="absolute bottom-2 left-2 w-10 h-10 bg-neutral-600 hover:bg-blue-900 rounded-full flex justify-center items-center cursor-pointer invisible group-hover:visible">
-            <BsPlayFill className="text-white" onClick={playMusic} />
+          <div
+            onClick={playMusic}
+            className="absolute bottom-2 left-2 w-10 h-10 bg-neutral-600 hover:bg-blue-900 rounded-full flex justify-center items-center cursor-pointer invisible group-hover:visible"
+          >
+            <BsPlayFill className="text-white" />
           </div>
         </div>
         <div className="pt-2">

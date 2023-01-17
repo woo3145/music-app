@@ -1,84 +1,98 @@
+// id: 2 ~ 10 출처
+// artlist.io  저작권x
+
 export const useMockTracks = () => {
   const tracks: ITrack[] = [
     {
       id: 1,
-      name: 'Break My Soul',
-      artworkUrl: 'https://source.unsplash.com/collection/31/1600x1600',
-      artistName: 'Beyonce',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Soul'],
+      name: "Woo's Blues",
+      artworkUrl:
+        'https://images.unsplash.com/photo-1579797990768-555ac3a4c7e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Ymx1ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+      artistName: 'woo3145',
+      audioUrl: '/static/woo3145 - blues.mp3',
+      genre: ['Blues'],
     },
     {
       id: 2,
-      name: 'Alone',
-      artworkUrl: 'https://source.unsplash.com/collection/32/1600x1600',
-      artistName: 'Rod Wave',
-      audioUrl: '/static/sample2.mp3',
-      genre: ['Pop'],
+      name: 'Goodnight Everybody',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1468276311594-df7cb65d8df6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fG5pZ2h0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      artistName: 'Sémø',
+      audioUrl: '/static/Sémø - Goodnight Everybody.mp3',
+      genre: ['Blues', 'Jazz'],
     },
     {
       id: 3,
-      name: 'Twilight',
-      artworkUrl: 'https://source.unsplash.com/collection/33/1600x1600',
-      artistName: 'John Cha',
-      audioUrl: '/static/sample3.mp3',
+      name: 'Goodness Gracious',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1614464160728-b3011bbf40c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      artistName: 'Louis Adrien',
+      audioUrl: '/static/Louis Adrien - Goodness Gracious.mp3',
       genre: ['Jazz'],
     },
     {
       id: 4,
-      name: 'Cause We`ve Ended As Lovers',
-      artworkUrl: 'https://source.unsplash.com/collection/34/1600x1600',
-      artistName: 'jeff beck',
-      audioUrl: '/static/sample1.mp3',
+      name: 'Christmas Day (inst.)',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1529973625058-a665431328fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      artistName: 'Foster',
+      audioUrl: '/static/Foster - Christmas Day - Instrumental Version.mp3',
       genre: ['Jazz'],
     },
     {
       id: 5,
-      name: 'I`m Buzzed',
-      artworkUrl: 'https://source.unsplash.com/collection/35/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'The Beat Detector',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1546528377-9049abbac32f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aGlwJTIwaG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      artistName: 'Novembers',
+      audioUrl: '/static/Novembers - The Beat Detector.mp3',
+      genre: ['Jazz', 'Hip Hop'],
     },
+
     {
       id: 6,
-      name: 'slow blues',
-      artworkUrl: 'https://source.unsplash.com/collection/36/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'Just One More Thing',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1619983081593-e2ba5b543168?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFsYnVtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      artistName: 'Bob Hart',
+      audioUrl: '/static/Bob Hart - Just One More Thing.mp3',
+      genre: ['Jazz'],
     },
     {
       id: 7,
-      name: 'Worried Life Blues',
-      artworkUrl: 'https://source.unsplash.com/collection/37/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'On the Run',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1614464160728-b3011bbf40c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      artistName: 'Louis Adrien',
+      audioUrl: '/static/Louis Adrien - On the Run.mp3',
+      genre: ['Jazz'],
     },
     {
       id: 8,
-      name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/38/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'Happy Go Lucky',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1614464160728-b3011bbf40c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      artistName: 'Louis Adrien',
+      audioUrl: '/static/Louis Adrien - Happy Go Lucky.mp3',
+      genre: ['Jazz'],
     },
     {
       id: 9,
-      name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/39/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'Nice and Easy',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1614464160728-b3011bbf40c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      artistName: 'Louis Adrien',
+      audioUrl: '/static/Louis Adrien - Nice and Easy.mp3',
+      genre: ['Jazz'],
     },
     {
       id: 10,
-      name: 'Judy',
-      artworkUrl: 'https://source.unsplash.com/collection/40/1600x1600',
-      artistName: 'Michael Landau',
-      audioUrl: '/static/sample1.mp3',
-      genre: ['Blues'],
+      name: 'Escape to Sicily',
+      artworkUrl:
+        'https://images.unsplash.com/photo-1614464160728-b3011bbf40c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      artistName: 'Louis Adrien',
+      audioUrl: '/static/Louis Adrien - Escape to Sicily.mp3',
+      genre: ['Jazz'],
     },
   ];
   return tracks;

@@ -40,7 +40,7 @@ const TrackCard = ({ track }: Props) => {
           <img
             src={track.artworkUrl}
             alt="avator"
-            className="w-14 md:w-16 lg:w-20 h-auto cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
+            className="w-20 h-20 md:h-24 md:w-24 lg:h-28 lg:w-28 cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
           />
           <div
             onClick={playMusic}

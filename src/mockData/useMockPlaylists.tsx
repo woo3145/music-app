@@ -3,29 +3,34 @@ import { useMockTracks } from './useMockTracks';
 export const useMockPlaylists = () => {
   const tracks = useMockTracks();
 
+  const bluesPlayList = tracks.filter((track) => track.genre.includes('Blues'));
+  const jazzPlayList = tracks.filter((track) => track.genre.includes('Jazz'));
+  const LouisPlayList = tracks.filter(
+    (track) => track.artistName === 'Louis Adrien'
+  );
   const playlists: IPlaylist[] = [
     {
       id: 1,
-      name: 'Test PlayList',
-      artworkUrl: tracks[0].artworkUrl,
+      name: 'Blues !',
+      artworkUrl: bluesPlayList[0].artworkUrl,
       description: 'Test',
-      tracks,
+      tracks: bluesPlayList,
       creatorName: 'woo3145',
     },
     {
       id: 2,
-      name: 'Test PlayList2',
-      artworkUrl: tracks[1].artworkUrl,
+      name: 'Jazz !',
+      artworkUrl: jazzPlayList[0].artworkUrl,
       description: 'Test',
-      tracks,
-      creatorName: 'woo3145',
+      tracks: jazzPlayList,
+      creatorName: 'jazzman',
     },
     {
       id: 3,
-      name: 'Test PlayList3',
-      artworkUrl: tracks[2].artworkUrl,
+      name: 'Happy Go Lucky',
+      artworkUrl: LouisPlayList[0].artworkUrl,
       description: 'Test',
-      tracks,
+      tracks: LouisPlayList,
       creatorName: 'woo3145',
     },
   ];
