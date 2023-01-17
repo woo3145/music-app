@@ -1,4 +1,5 @@
-import HeaderLogo from './HeaderLogo';
+import HeaderLogo from './Logo';
+import { Info } from './Info';
 
 const Header = () => {
   return (
@@ -7,6 +8,7 @@ const Header = () => {
     px-4 lg:px-16 duration-200"
     >
       <HeaderLogo />
+      <Info />
     </header>
   );
 };
