@@ -15,14 +15,14 @@ const MusicPlayerSeekBar = () => {
 
   if (error) {
     return (
-      <div className="w-full px-8 flex items-center">
+      <div className="flex items-center w-full px-8">
         <p>{error}</p>
       </div>
     );
   }
   return (
-    <div className="w-full px-8 flex items-center">
-      <p className="w-10 text-sm text-center">
+    <div className="absolute left-0 flex items-center w-full xl:px-8 -top-2 xl:static">
+      <p className="hidden w-10 text-sm text-center xl:block">
         {secondsToMinutesAndSeconds(position)}
       </p>
       <input
@@ -34,7 +34,7 @@ const MusicPlayerSeekBar = () => {
         step={0.1}
         onChange={onChangeHandler}
       />
-      <p className="w-10 text-sm text-center">
+      <p className="hidden w-10 text-sm text-center xl:block">
         {secondsToMinutesAndSeconds(duration)}
       </p>
     </div>

@@ -28,10 +28,7 @@ const MusicPlayer = () => {
 
   if (!currentMusic) return null;
   return (
-    <div
-      className="fixed left-0 right-0 bottom-0 h-14 bg-slate-200 border border-t-slate-300 
-    flex justify-between items-center px-16"
-    >
+    <div className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-4 border h-14 bg-slate-200 border-t-slate-300 xl:px-16">
       <MusicPlayerController />
       <MusicPlayerSeekBar />
       <MusicVolume />

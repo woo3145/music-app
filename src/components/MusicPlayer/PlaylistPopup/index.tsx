@@ -17,8 +17,8 @@ const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
     dispatch(clearPlaylist());
   };
   return (
-    <div className="absolute bottom-16 right-14 w-full max-w-sm h-auto bg-blue-900 rounded-md shadow-md">
-      <div className="flex items-center justify-between px-4 py-3 border-b text-white">
+    <div className="fixed left-0 w-full bg-blue-900 rounded-md shadow-md xl:max-w-sm xl:absolute bottom-20 xl:left-auto xl:top-auto xl:right-14">
+      <div className="flex items-center justify-between px-4 py-3 text-white border-b">
         <p className="tracking-widest">Up Next</p>
         <div className="flex items-center">
           <div
@@ -36,7 +36,7 @@ const PlaylistPopup = ({ playlistToggle }: PlaylistPopupProps) => {
       <Droppable droppableId="playlist-column">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            <ul className="bg-white border border-t-0 h-96 overflow-y-scroll">
+            <ul className="overflow-y-scroll bg-white border border-t-0 h-96">
               {playlist &&
                 playlist.tracks.map((track, idx) => {
                   return (

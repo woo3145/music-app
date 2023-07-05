@@ -12,18 +12,22 @@ const MusicMetadata = ({ playlistToggle }: Props) => {
     return null;
   }
   return (
-    <div className="shrink-0 w-60 flex items-center justify-between">
+    <div className="flex items-center justify-between w-48 shrink-0 xl:w-60">
       <div className="flex items-center">
         {/* artwork */}
-        <div className="w-9 h-9 shrink-0">
-          <img src={currentTrack.artworkUrl} alt="" className="rounded-md" />
+        <div className="bg-center w-9 h-9">
+          <img
+            src={currentTrack.artworkUrl}
+            alt=""
+            className="rounded-md w-9 h-9"
+          />
         </div>
         {/* title & artistName */}
         <div className="px-3">
-          <p className="text-xs leading-4 opacity-60 cursor-pointer hover:opacity-100 duration-200 break-all line-clamp-1">
+          <p className="text-xs leading-4 break-all duration-200 cursor-pointer opacity-60 hover:opacity-100 line-clamp-1">
             {currentTrack.artistName}
           </p>
-          <p className="text-sm leading-4 opacity-70 cursor-pointer hover:opacity-100 duration-200 break-all line-clamp-1">
+          <p className="text-sm leading-4 break-all duration-200 cursor-pointer opacity-70 hover:opacity-100 line-clamp-1">
             {currentTrack.name}
           </p>
         </div>
@@ -32,7 +36,7 @@ const MusicMetadata = ({ playlistToggle }: Props) => {
       <div className="flex">
         <RiPlayListLine
           onClick={playlistToggle}
-          className="text-lg opacity-70 cursor-pointer hover:opacity-100 duration-200"
+          className="text-lg duration-200 cursor-pointer opacity-70 hover:opacity-100"
         />
       </div>
     </div>

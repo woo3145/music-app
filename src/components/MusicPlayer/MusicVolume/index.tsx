@@ -36,7 +36,7 @@ const MusicVolume = () => {
   }, [curVolume, volume]);
 
   return (
-    <div className="shrink-0 mr-8 cursor-pointer flex">
+    <div className="hidden mr-8 cursor-pointer shrink-0 xl:flex">
       {muted ? (
         <IoVolumeMute className="text-xl" onClick={muteToggle} />
       ) : (
