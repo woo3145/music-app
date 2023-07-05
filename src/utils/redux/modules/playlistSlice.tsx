@@ -5,12 +5,14 @@ interface PlaylistState {
   currentTrack: ITrack | null; // 현재 재생중인 곡
   playlist: IPlaylist | null; // 플레이 리스트
   currentIdx: number | null; // 플레이 리스트에서 재생중인 곡 인덱스
+  isEmpty: boolean;
 }
 
 const initialState: PlaylistState = {
   currentTrack: null,
   playlist: null,
   currentIdx: null,
+  isEmpty: true,
 };
 
 interface SetPlaylistAction {
@@ -35,6 +37,7 @@ export const playlistSlice = createSlice({
       state.currentIdx = currentIdx;
       state.currentTrack =
         playlist.tracks[playlist.tracks.length > currentIdx ? currentIdx : 0];
+      state.isEmpty = false;
     },
     // 현재 플레이리스트 다음에 곡 추가
     addNext(state, action: PayloadAction<AddMusicAction>) {

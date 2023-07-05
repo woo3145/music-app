@@ -13,11 +13,11 @@ interface Props {
 
 const TrackCard = ({ track }: Props) => {
   const dispatch = useAppDispatch();
-  const playlist = useAppSelector((state) => state.playlist.playlist);
+  const isEmpty = useAppSelector((state) => state.playlist.isEmpty);
   const playMusic = () => {
     if (!track) return;
     // 현재 플레이 리스트가 없을경우 새로추가
-    if (!playlist) {
+    if (isEmpty) {
       const newPlaylist = {
         id: 1,
         name: 'Local Playlist',
@@ -35,16 +35,16 @@ const TrackCard = ({ track }: Props) => {
   };
   return (
     <li key={track.id} className="w-full h-auto">
-      <div className="group flex items-center cursor-pointer">
+      <div className="flex items-center cursor-pointer group">
         <div className="relative shrink-0">
           <img
             src={track.artworkUrl}
             alt="avator"
-            className="w-20 h-20 md:h-24 md:w-24 lg:h-28 lg:w-28 cursor-pointer group-hover:brightness-75 duration-200 rounded-md"
+            className="w-20 h-20 duration-200 rounded-md cursor-pointer md:h-24 md:w-24 lg:h-28 lg:w-28 group-hover:brightness-75"
           />
           <div
             onClick={playMusic}
-            className="absolute bottom-2 left-2 w-8 h-8 bg-neutral-600 hover:bg-blue-900 rounded-full flex justify-center items-center cursor-pointer invisible group-hover:visible"
+            className="absolute flex items-center justify-center invisible w-8 h-8 rounded-full cursor-pointer bottom-2 left-2 bg-neutral-600 hover:bg-blue-900 group-hover:visible"
           >
             <BsPlayFill className="text-white" />
           </div>
